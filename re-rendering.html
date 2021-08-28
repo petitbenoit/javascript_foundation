@@ -1,0 +1,35 @@
+<html>
+
+    <body>
+        <ul id="employees"></ul>
+        <button onclick="loadEmployees()">Load Data</button>
+        <button onclick="refreshEmployees()">Refresh Data</button>
+        <script>
+          function loadEmployees() {
+            var emps = [
+              { id: 100, name: "A" },
+              { id: 101, name: "B" },
+              { id: 102, name: "C" },
+            ];
+            displayEmployees(emps);
+          }
+          function refreshEmployees() {
+            var emps = [
+              { id: 100, name: "A" },
+              { id: 101, name: "B" },
+              { id: 102, name: "C" },
+              { id: 103, name: "D" },
+            ];
+            displayEmployees(emps);
+          }
+          function displayEmployees(data) {
+            var ele = document.getElementById("employees");
+            ele.innerHTML = "";
+            for (var i = 0; i < data.length; i++) {
+              ele.innerHTML += "<li>" + data[i].name + "</li>";
+            }
+          }
+        </script>
+      </body>
+    
+</html>

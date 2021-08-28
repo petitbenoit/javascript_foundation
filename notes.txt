@@ -1,0 +1,509 @@
+naming convention
+
+1. filename : lowercase
+2. members, functions, variable : camelCase
+3. class : PascalCase
+
+async & callbacks
+async & promise
+
+person1
+person2
+person3
+
+person1 => explain the scenario => wait for an answer => yes => contact the bank to start processing
+=> no => contact person2 & repeat the flow
+
+callback : multiple answer : chat 
+
+promise : single answer : API/HTTP calls
+
+modules
+
+NODE JS 
+
+1. runtime env
+2. dependency management
+
+npm
+package.json : node env config file : npm init
+
+npm install library-name --flags
+
+--flags
+global/system level install
+--global / -g : CLI Tools 
+
+local/application level install
+--save/-S : dependency : required in both production and development stage : compiler
+--save-dev / -D : dev dependency : required only in development stage : UT, build tools
+
+We need webpack to get modules work
+
+--24/08
+https://webpack.js.org/
+
+npm install webpack
+npm install webpack-cli -D
+
+ignore from source commit 
+nodes_modules : dependencies are downloaded & kept here
+package-lock.json : log file
+
+^1.0.0 : it'll download min 1.0.0 or latest minor release (1.1.0)
+~1.0.0 : it'll download min 1.0.0 or latest patch release (1.0.2)
+1.0.0 : it'll download min 1.0.0 only
+
+ANGULAR
+1. VS Code
+2. Node JS
+3. Chrome
+4. Angular CLI
+5. Angular devtools (>v9) - why ? because compiler has changed
+    Angular augury (<v9)
+6. Angular language service - will help to provide suggestion : VS Code extension
+
+Make dev better - add Plug-ins : 
+1. auto rename tag
+2. auto close tag
+3. bracket pair colorizer 2
+4. path intellisense (import things)
+5. prettier
+6. error lens
+
+install angular 
+npm install @angular/cli -g (hyphen)
+
+ng version
+
+ng new my-app
+Routing : N 
+CSS : hit enter
+
+TS : Typescript : typed version of javascript
+JS : loosely typed system 
+
+STEPS
+
+1. creation
+2. registration : it is a way to convey the angular env that you require this functionality to be 
+3. consumption/utilization
+
+cd my-app
+ng serve -o
+
+EXECUTION
+index.html
+main.ts
+app.module.ts : all applications functionalities are registered in here 
+
+@Decorator() : use to provide meta data information to a class
+
+Class becomes a module when it has @ngModule
+
+ANGULAR CORE : 
+
+4 different concepts : 
+1. Component : reusable building blocks of your application
+    user defined html tag
+    <p></p>
+    <test></test>
+
+2. Directives : used to extend the functionality of an existing component (Enhance functionality of specific feature)
+    user defined html attributes/properties
+    <p id="" class="" test=""></p>
+
+3. Pipe : 
+    data transformation / data formatting
+
+4. Service : 
+    - api/http calls 
+    - business logic layers (follow layer architecture)
+    - data sharing / state management
+
+*.component.ts : logical (ES5)
+*.component.html : displayed
+*.component.css : styling
+
+
+ng g    component name-of-component
+        directive
+        pipe
+        service
+        module
+        Class
+        guard 
+        interceptor
+--------------------------------------------------------------------------------------------------------------
+Component (principle)
+1. smallest reusable entity
+2. SRP principle - Single response person
+
+ng g component components/product
+
+Product
+1. displaying the data
+    - how the data needs to be displayed
+    - on the click of the button notify the parent component about it
+    - should the test of the button be displayed as add to cart / wishlist
+    - show/hide button
+
+2. fetching the data
+3. add to cart (logical implementation; when the button is clicked)
+4. add to wishlist
+5. no button 
+
+Page 1 
+    Product : add to cart
+
+Page 2 
+    Product : add to the wishlist
+
+Page 3 
+    Product : catalogue view
+
+
+Reusable : use it as is
+
+SMART : logical - doing logical activities, like fetching / sending the data to server
+DUMB : presentation - how the data should be displayed
+
+SMART : fetch data from the server, passes on the data to the DUMB component
+    DUMB : collects the data & displays it
+
+
+App
+    ProductList : SMART 
+        Product : DUMB
+
+PARENT <=> CHILD
+PARENT TO CHILD @Input() property
+CHILD TO PARENT @Output() event
+
+ng g component containers/product-list
+ng g component containers/employees-list
+
+list
+1. ngFor with trackBy : smaller lists (10-20)
+2. pagination : larger datasets
+3. virtual scroll : larger datasets
+--------------------------------------------------------------------------------------------------------------
+PIPES
+data transformation / data formatting
+transforms the presentation data / data being displayed
+
+input | functionality : param1 : param2 : param 3
+--------------------------------------------------------------------------------------------------------------
+25/08
+RULES OF DEVELOPMENT IN ANGULAR
+
+1. The ngFor should be used with trackBy
+2. Never use functions inside html to display the data
+
+--------------------------------------------------------------------------------------------------------------
+PIPES 
+
+App
+    Currency : start (data flow)
+    ProductList
+        Product : finish (data flow)
+
+    PARENT <==> CHILD
+    Currency => App => ProductList => Product
+
+    ng g component components/currency
+---------------------------------------------------------------------------------------------------------------
+Custom Pipe 
+
+input | pipe1 | pipe2 | pipe3 | pipe4 ...
+
+ng g pipe pipes/conversion
+
+price | currency | conversion
+
+PIPES
+1. pure : will execute its logic only when any of the args of the transform function changes.
+2. impure : will execute its logic irrespective of the args of the transform function has changed.
+---------------------------------------------------------------------------------------------------------------
+DIRECTIVES
+
+<img src="image.jpg" />
+<img src="default.jpg" /> 
+only src that are changing 
+
+error handler -> onerror
+
+ng g directive directives/img-fallback
+
+
+.shadow:hover{}
+
+.blur
+
+ng g directive directives/shadow-effect
+
+---------------------------------------------------------------------------------------------------------------
+component lifecycle hooks 
+
+(lifecycle HOOKS for angular)
+-constructor in angular : once/instance : initialize values, Dependency injection
+-ngOnChanges : executes on every @Input() value change
+-ngOnInit : once/instance : on load related activities/operations (stage when components get initialized successfully)
+ngDoCheck
+    ngAfterContentInit
+    ngAfterContentChecked
+    #both work together 
+    - ngAfterViewInit : once/ instance : HTML has been loaded completely
+    ngAfterViewChecked
+- ngOnDestroy : once / instance : on unload -> unsubscribe from your services
+
+
+document.getElementById() : #ref 
+--------------------------------------------------------------------------------------------------------------
+Bootstrap
+
+col-md-size -> grid-md-size ; we need to change everywhere
+
+solution : Append classes dynamically to the element 
+ng g directive directives/column
+
+FORMS : @angular/forms
+
+Template Driven form : FormsModule -> simple type of form 
+Model Driven form : ReactiveFormModule (nested object )
+--------------------------------------------------------------------------------------------------------------
+FORM STATE -> behavior of the form (applicable valid / invalid)
+
+valid & invalid : helps in identifying the validation state of the form/field
+touched & untouched : helps in efficiently identifying if user has visited that field or not.
+dirty & pristine : helps in identifying if the user has changed the value of the field.
+errors : helps in identifying which validation errors has occurred.
+
+ng g component forms/template-driven
+
+VALIDATION
+required
+minlength
+maxlength
+min
+max
+pattern
+------------------------------------------------------------------------------------------------------------------------
+26/08
+
+{ : FormGroup
+name: FormControl
+age : FormControl
+address : { FormGroup
+city: FormControl
+zipcode : FormControl
+
+}
+}
+
+ng g component forms/model-driven
+
+VALIDATION
+    valid : returns null
+    invalid : returns object
+
+3 properties in the nature of validation : 
+
+errors : information about all the errors occurred
+hasError : used to check if the specified error has occurred or not 
+getError : used to fetch the error object information.
+
+zipcodeValidator works only with reactive/model-driven form 
+
+
+ng g directive forms/zip-code
+
+ng g component forms/show-errors
+
+dynamic forms
+
+{ : FormGroup
+    name, : FormControl
+    email,
+    experiences : [ : FormArray
+        { company, designation, ...},
+        { company, designation, noofyrs}
+    ]
+}
+
+ng g component forms/linkedin-form
+
+---------------------------------------------------------------------------------------------------------------------
+Modules in JavaScript : structuring application using feature modules to make it maintainable
+
+Features modules
+
+// allow us to create ui functionality header footer for example
+ng g module ui 
+
+ng g component ui/components/header
+ng g component ui/components/footer
+
+services    
+
+http services/api calls
+
+1. Promise : JS
+2. observable : RxJs : recommended 
+    Angular internal architecture is built using observable (RxJS)
+
+
+SEARCH
+keypress => request => server => response => suggestions
+
+SAMSUNG
+7 : 1
+Why observable are used compared to promise ? 
+
+1. debounce : adding a delay (timer predict delay between consecutive keystrokes - 300-500ms)
+samsung : 1
+
+2. waiting time : canceling a request which has not yet completed (does not have it in promise)
+S 
+SA
+SAM
+SAMSUNG
+
+3. retry (promise don't offer this time of functionality)
+- should not let user to search again, dont get data due to downtime for some couple of second or time
+
+4. foundation on which the observable is built : PUB SUB model
+
+Observable 
+1. HOT : instant updates (e.g. stock market) : data sharing 
+2. COLD : one time information/ data : HTTP calls
+
+@angular/common/http : HttpClientModule
+
+ng g service services/product
+
+
+2 level registrations for services : 
+    app.module.ts : global : singleton : data sharing
+    *.component.ts : local : a new instance will be created every time we use the component : HTTP Services.
+
+=========================================================================================================================
+27/08
+
+ng g module search
+ng g component github-search
+ng g service search/search
+
+1. debounce time 
+2. cancellation incorporated (switchMap)
+3. retry
+
+Components ->
+App 
+    Static : header, footer
+    Dynamic : router
+
+@angular/router : RouterModule
+
+ng g module app-routing --flat (create module without folder)
+
+
+ng g component components/error-page
+
+ROUTER
+1. navigation : Router Services 
+2. params (url params) : ActivatedRoute service-  parsing parameters
+    - path params : required
+    - query params : optional
+
+ng g component containers/product-detail
+
+ng g service services/currency
+
+UNSUBSCRIBING
+1. Subscription object
+2. 3rd party library : ngneat/until-destroy - https://github.com/ngneat/until-destroy
+3. ASYNC PIPE : automatically subscribe & unsubscribe
+
+
+request => interceptor => server => interceptor => response
+
+REQUEST INTERCEPTOR : tokens
+RESPONSE INTERCEPTOR : error handling (loggers)
+
+loader
+
+ng g module loader
+ng g component loader/spinner
+ng g service loader/loader
+ng g interceptor loader/http-loader
+
+ng g interceptor services/http-error
+
+========================================================================================================================
+
+28/08
+LAZY LOADED MODULES     : loaded on-demand
+EAGERLY LOADED MODULES  : app.module.ts (package is loaded as soon as logic in the app module is loaded)
+
+Dashboard : all the users : 1mb
+Reporting : admin : 1mb
+
+main.js : 1 + 1 = 2mb : 1mb
+
+ng g module reporting --routing : will have its own routing configuration
+ng g component reporting/dashboard 
+
+main.js 132kb
+
+code-splitting (lazy loading)
+because you are splitting function : final load time will be much way faster - increase page load time 
+
+ROUTER GUARDS
+
+public routes
+private/protected routes 
+
+canActivate : auth
+canDesactivate : save & exit (are you sure you want to do this )
+
+ng g guard services/auth
+
+ng g module user
+ng g component user/login 
+ng g service user/auth
+
+object literal -> instancing the object
+destructuring -> fetching the data
+
+STATE management : 
+1. services : RxJs
+2. redux : global state management solution in JS (NgRx, NgXs, Akita) - optional resource - simplify observable/ state implementation
+
+FLUX pattern : uni directional data flow
+
+STORE : data repository - belongs to entire app (global solution), anyone can get / update data inside the STORE (service)
+Flux Diagram : https://miro.medium.com/max/1838/1*pgxTL69KXTYjupzGO015Ew.png
+TV : data inside the repo
+Person : Component (service is consumed or used by the components) - component decides the entire behaviour
+
+
+https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
+
+https://ngrx.io/
+ng add @ngrx/store@latest
+
+ng add @ngrx/store-devtools@latest (time travel debugging)
+
+Two steps to do with redux : 
+
+1. creating actions
+2. define reducers (part of the store)
+    reducers are going to analyse the type of dispatcher and return the updated data to the store
+
+PRODUCTION : ng build (production build by default)
+DEVELOPMENT : ng build --configuration development
+
+
+
+

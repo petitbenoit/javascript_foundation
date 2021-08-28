@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Document
+        </title>
+    </head>
+    <body>
+        <p id="p1">Some initial data</p>
+        <button onclick="changeContent()">Change Content</button>
+        <script>
+            function changeContent() {
+                //async in nature -:> document.getElementById
+                document.getElementById("p1").innerHTML = "Some updated Content"; // render callback will be called
+                alert('UI Blocked'); // single threaded nature of browser take care of the rendering part (sync) // managing rendering behavior in the browser
+                // render callback will be pushed into the stack : ui gets updated
+            }
+            
+        </script>
+    </body>
+</html>
